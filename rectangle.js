@@ -1,6 +1,6 @@
-class rectangle extends Array
+class rectangle
 {
-    /*constructor(posX, posY, size, numb, dir)
+    constructor(posX, posY, size, numb, dir)
     {
         this.posX = posX;
         this.posY = posY;
@@ -12,10 +12,24 @@ class rectangle extends Array
 
     paint()
     {
-        rect(posX, posY, size);  
-    }*/
+        rect(this.posX, this.posY, this.size);  
+    }
 
-    static get[Symbol.species]() {return Array;}
+    /*static get[Symbol.species]() {return Array;}
+
+    assignNumbs(posX, posY, size, numb, dir)
+    {
+        this.posX = posX;
+        this.posY = posY;
+        this.size = size;
+        this.numb = numb;
+        this.dir = dir;
+    }
+
+    paint()
+    {
+        rect(posX, posY, size);
+    }*/
 
 
 }

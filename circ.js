@@ -1,4 +1,4 @@
-class circle
+class circ
 {
     constructor(posX, posY, size, numb, dir)
     {
@@ -8,5 +8,11 @@ class circle
 
         this.numb = numb;
         this.dir = dir;
+    }
+
+    paint()
+    {
+        circle(this.posX, this.posY, this.size);
+        console.log("it works")
     }
 }

@@ -5,7 +5,7 @@ let rects = [];
 
 let screen1;
 
-let rectObject, rectObjectMap;
+let rectObject, circleObject;
 
 let isError;
 
@@ -16,8 +16,9 @@ function setup()
     numbRects = 0;
     isError = false;
 
-    //rectObject = new rectangle(random(0, 800), random(0, 300), random(10, 40), random(1, 10), random(-2, 2));
-    rectObject = new rectangle(numbRects);
+    rectObject = new rectangle(random(0, 800), random(0, 300), random(10, 40), random(1, 10), random(-2, 2));
+    circleObject = new circ(random(0, 800), random(301, 600), random(10, 40), random(1, 10), random(-2, 2))
+    // rectObject = new rectangle(numbRects);
     //rectObjectMap = rectObject.map(numbRects++);
 
 	createCanvas(800, 600);
@@ -27,12 +28,15 @@ function setup()
         element.setSize(element.size);
    })
 
+   
+   //rectObject.assignNumbs(random(0, 800), random(0, 300), random(10, 40), random(0, 10), random(-2, 2));
+
 }
 
 function draw()
 {
     background(110, 154, 157);
-    console.log(mouseX + ", " + mouseY);
+    //console.log(mouseX + ", " + mouseY);
     rectMode(CENTER);
 
     if(!screen1)
@@ -56,7 +60,7 @@ function draw()
         image(img2, 0, 0);
 
         rectInit();
-        rectObject.paint();
+        //circleObject.paint();
     }
 }
 
@@ -65,6 +69,7 @@ function rectInit()
     for(let i = 0; i < numbRects; i++)
     {
         rects.push(rectObject); 
+        rectObject.paint();
     }
 }
 
