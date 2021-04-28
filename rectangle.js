@@ -1,6 +1,6 @@
-class rectangle
+class rectangle extends Array
 {
-    constructor(posX, posY, size, numb, dir)
+    /*constructor(posX, posY, size, numb, dir)
     {
         this.posX = posX;
         this.posY = posY;
@@ -13,6 +13,9 @@ class rectangle
     paint()
     {
         rect(posX, posY, size);  
-    }
+    }*/
+
+    static get[Symbol.species]() {return Array;}
+
 
 }

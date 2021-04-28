@@ -5,7 +5,7 @@ let rects = [];
 
 let screen1;
 
-let rectObject;
+let rectObject, rectObjectMap;
 
 let isError;
 
@@ -16,7 +16,9 @@ function setup()
     numbRects = 0;
     isError = false;
 
-    rectObject = new rectangle(random(0, 400), random(0, 400), random(10, 40), random(1, 10), random(-2, 2));
+    //rectObject = new rectangle(random(0, 800), random(0, 300), random(10, 40), random(1, 10), random(-2, 2));
+    rectObject = new rectangle(numbRects);
+    //rectObjectMap = rectObject.map(numbRects++);
 
 	createCanvas(800, 600);
 
@@ -54,17 +56,16 @@ function draw()
         image(img2, 0, 0);
 
         rectInit();
+        rectObject.paint();
     }
-
-    //rects.paint();
 }
 
 function rectInit()
 {
-    //for(let i = 0; i < numbRects; i++)
-  //  {
-  //      rects.push(rectObject); 
-  //  }
+    for(let i = 0; i < numbRects; i++)
+    {
+        rects.push(rectObject); 
+    }
 }
 
 function mousePressed()
@@ -100,7 +101,7 @@ function mousePressed()
         screen1 = true;
         rects = [numbRects];
     }
-    else if(numbRects == 0)
+    else if(mouseX > 303 && mouseX < 497 && mouseY > 383 && mouseY < 452 && numbRects == 0)
     {
         textSize(30);
         isError = true;
