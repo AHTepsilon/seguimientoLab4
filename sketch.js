@@ -5,9 +5,11 @@ let rects = [];
 
 let screen1;
 
-let rectObject, circleObject;
+let rectObject;
 
 let isError;
+
+let rectPosX, rectPosY, rectSize, rectNumb, rectDir;
 
 function setup() 
 {
@@ -16,8 +18,6 @@ function setup()
     numbRects = 0;
     isError = false;
 
-    rectObject = new rectangle(random(0, 800), random(0, 300), random(10, 40), random(1, 10), random(-2, 2));
-    circleObject = new circ(random(0, 800), random(301, 600), random(10, 40), random(1, 10), random(-2, 2))
     // rectObject = new rectangle(numbRects);
     //rectObjectMap = rectObject.map(numbRects++);
 
@@ -27,7 +27,7 @@ function setup()
     {
         element.setSize(element.size);
    })
-
+   
    
    //rectObject.assignNumbs(random(0, 800), random(0, 300), random(10, 40), random(0, 10), random(-2, 2));
 
@@ -36,7 +36,7 @@ function setup()
 function draw()
 {
     background(110, 154, 157);
-    //console.log(mouseX + ", " + mouseY);
+    console.log(mouseX + ", " + mouseY);
     rectMode(CENTER);
 
     if(!screen1)
@@ -60,21 +60,34 @@ function draw()
         image(img2, 0, 0);
 
         rectInit();
-        //circleObject.paint();
     }
 }
 
 function rectInit()
-{
+{    
     for(let i = 0; i < numbRects; i++)
     {
-        rects.push(rectObject); 
+        rectPosX = random(0, 800);
+        rectPosY = random(0, 300);
+        rectSize = random(10, 40);
+        rectNumb = random(1, 10);
+        rectDir = random(-2, 2);
+
+        rectObject = new rectangle(rectPosX, rectPosY, rectSize, i, rectDir);
+        rects.push(rectObject * i);
         rectObject.paint();
     }
 }
 
+function rectPaint()
+{
+    
+}
+
 function mousePressed()
 {
+    //buttons screen 1
+
     if(dist(mouseX, mouseY, 116, 284) < 42)
     {
         if(numbRects == 0)
@@ -111,4 +124,27 @@ function mousePressed()
         textSize(30);
         isError = true;
     }
+
+    //buttons screen 2
+
+    if(dist(mouseX, mouseY, 125, 533) < 30) //keeps the amount of squares from going above 10
+    {
+        numbRects++;
+
+        if(numbRects > 10)
+        {
+            numbRects = 10;
+        }
+    }
+
+    if(dist(mouseX, mouseY, 291, 533) < 30) //keeps the amount of squares from going below 0
+    {
+        numbRects--;
+
+        if(numbRects < 1)
+        {
+            numbRects = 1;
+        }
+    }
+
 }
