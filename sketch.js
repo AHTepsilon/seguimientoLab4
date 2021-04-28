@@ -23,12 +23,6 @@ function setup()
 
 	createCanvas(800, 600);
 
-    rects.forEach(function(element)
-    {
-        element.setSize(element.size);
-   })
-   
-   
    //rectObject.assignNumbs(random(0, 800), random(0, 300), random(10, 40), random(0, 10), random(-2, 2));
 
 }
@@ -37,6 +31,7 @@ function draw()
 {
     background(110, 154, 157);
     console.log(mouseX + ", " + mouseY);
+    //console.log(numbRects);
     rectMode(CENTER);
 
     if(!screen1)
@@ -127,24 +122,34 @@ function mousePressed()
 
     //buttons screen 2
 
-    if(dist(mouseX, mouseY, 125, 533) < 30) //keeps the amount of squares from going above 10
+    if(dist(mouseX, mouseY, 125, 533) < 30) //add a new rect
     {
         numbRects++;
 
-        if(numbRects > 10)
+        if(numbRects > 10) //keeps the amount of squares from going above 10
         {
             numbRects = 10;
         }
     }
 
-    if(dist(mouseX, mouseY, 291, 533) < 30) //keeps the amount of squares from going below 0
+    if(dist(mouseX, mouseY, 291, 533) < 30) //deletes a rect
     {
         numbRects--;
 
-        if(numbRects < 1)
+        if(numbRects < 1) //keeps the amount of squares from going below 0
         {
             numbRects = 1;
         }
+    }
+
+    if(dist(mouseX, mouseY, 489, 533) < 30) //changes the size
+    {
+     
+    }
+
+    if(dist(mouseX, mouseY, 668, 533) < 30) //creates the ball array
+    {
+     
     }
 
 }
