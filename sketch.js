@@ -25,12 +25,14 @@ function setup()
 
    //rectObject.assignNumbs(random(0, 800), random(0, 300), random(10, 40), random(0, 10), random(-2, 2));
 
+      
+
 }
 
 function draw()
 {
     background(110, 154, 157);
-    console.log(mouseX + ", " + mouseY);
+   // console.log(mouseX + ", " + mouseY);
     //console.log(numbRects);
     rectMode(CENTER);
 
@@ -53,8 +55,10 @@ function draw()
     if(screen1)
     {
         image(img2, 0, 0);
-
-        rectInit();
+        for (let index = 0; index < rects.length; index++) 
+        {
+            rects[index].paint();
+        }   
     }
 }
 
@@ -68,9 +72,11 @@ function rectInit()
         rectNumb = random(1, 10);
         rectDir = random(-2, 2);
 
-        rectObject = new rectangle(rectPosX, rectPosY, rectSize, i, rectDir);
-        rects.push(rectObject * i);
-        rectObject.paint();
+
+        let rectObject = new rectangle(rectPosX, rectPosY, rectSize, i, rectDir);
+        rects[i] = rectObject;
+        //rects.push(rectObject);
+    
     }
 }
 
@@ -113,11 +119,13 @@ function mousePressed()
     {
         screen1 = true;
         rects = [numbRects];
+        rectInit();
     }
     else if(mouseX > 303 && mouseX < 497 && mouseY > 383 && mouseY < 452 && numbRects == 0)
     {
         textSize(30);
         isError = true;
+        
     }
 
     //buttons screen 2
