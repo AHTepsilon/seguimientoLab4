@@ -15,4 +15,9 @@ class circ
         circle(this.posX, this.posY, this.size);
         console.log("it works")
     }
+
+    move()
+    {
+        this.posX += this.dir;
+    }
 }

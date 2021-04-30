@@ -58,6 +58,7 @@ function draw()
         for (let index = 0; index < rects.length; index++) 
         {
             rects[index].paint();
+            rects[index].move();
         }   
     }
 }
