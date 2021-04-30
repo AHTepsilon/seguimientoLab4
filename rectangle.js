@@ -30,6 +30,11 @@ class rectangle
         }
     }
 
+    resize()
+    {
+        this.size += 1;
+    }
+
     /*static get[Symbol.species]() {return Array;}
 
     assignNumbs(posX, posY, size, numb, dir)

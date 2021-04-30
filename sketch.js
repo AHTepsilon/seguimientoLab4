@@ -81,6 +81,14 @@ function rectInit()
     }
 }
 
+function rectReSize()
+{
+    for (let index = 0; index < rects.length; index++) 
+    {
+        rects[index].resize();
+    }
+}
+
 function rectPaint()
 {
     
@@ -126,34 +134,37 @@ function mousePressed()
     {
         textSize(30);
         isError = true;
-        
     }
 
     //buttons screen 2
 
     if(dist(mouseX, mouseY, 125, 533) < 30) //add a new rect
     {
+        rects.push(new rectangle(random(0, 800), random(0, 300), random(5, 40), random(0, 10), random(-2, 2)));
         numbRects++;
 
         if(numbRects > 10) //keeps the amount of squares from going above 10
         {
+            rects.pop();
             numbRects = 10;
         }
     }
 
     if(dist(mouseX, mouseY, 291, 533) < 30) //deletes a rect
     {
+        rects.pop();
         numbRects--;
 
         if(numbRects < 1) //keeps the amount of squares from going below 0
         {
+            rects.push(new rectangle(random(0, 800), random(0, 300), random(5, 40), random(0, 10), random(-2, 2)));
             numbRects = 1;
         }
     }
 
     if(dist(mouseX, mouseY, 489, 533) < 30) //changes the size
     {
-     
+        rects.forEach(rectReSize);
     }
 
     if(dist(mouseX, mouseY, 668, 533) < 30) //creates the ball array
