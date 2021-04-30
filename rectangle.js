@@ -12,7 +12,12 @@ class rectangle
 
     paint()
     {
-        rect(this.posX, this.posY, this.size);  
+        fill(0);
+        rect(this.posX, this.posY, this.size);
+
+        textSize(20);
+        fill(255);
+        text(Math.floor(this.numb), this.posX, this.posY + 5);
     }
 
     move()

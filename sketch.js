@@ -2,6 +2,9 @@ let img1, img2;
 
 let numbRects;
 let rects = [];
+let circs = [];
+
+let paintCircle;
 
 let screen1;
 
@@ -23,10 +26,7 @@ function setup()
 
 	createCanvas(800, 600);
 
-   //rectObject.assignNumbs(random(0, 800), random(0, 300), random(10, 40), random(0, 10), random(-2, 2));
-
-      
-
+   //rectObject.assignNumbs(random(0, 800), random(0, 300), random(10, 40), random(0, 10), random(-2, 2));   
 }
 
 function draw()
@@ -74,7 +74,7 @@ function rectInit()
         rectDir = random(-2, 2);
 
 
-        let rectObject = new rectangle(rectPosX, rectPosY, rectSize, i, rectDir);
+        let rectObject = new rectangle(rectPosX, rectPosY, rectSize, random(1, 10), rectDir);
         rects[i] = rectObject;
         //rects.push(rectObject);
     
@@ -92,6 +92,29 @@ function rectReSize()
 function rectPaint()
 {
     
+}
+
+function sortThat()
+{
+    for (let index = 0; index < rects.length; index++) 
+    {
+        rects.sort(rects[index], rectPosX);
+    }
+}
+
+function keyPressed()
+{
+    switch(key)
+    {
+        case 'n':
+            sortThat();
+            break;
+        case 'N':
+            sortThat();
+            break;
+        default:
+            break;
+    }
 }
 
 function mousePressed()
@@ -140,7 +163,7 @@ function mousePressed()
 
     if(dist(mouseX, mouseY, 125, 533) < 30) //add a new rect
     {
-        rects.push(new rectangle(random(0, 800), random(0, 300), random(5, 40), random(0, 10), random(-2, 2)));
+        rects.push(new rectangle(random(0, 800), random(0, 300), random(5, 40), random(1, 10), random(-2, 2)));
         numbRects++;
 
         if(numbRects > 10) //keeps the amount of squares from going above 10
@@ -157,7 +180,7 @@ function mousePressed()
 
         if(numbRects < 1) //keeps the amount of squares from going below 0
         {
-            rects.push(new rectangle(random(0, 800), random(0, 300), random(5, 40), random(0, 10), random(-2, 2)));
+            rects.push(new rectangle(random(0, 800), random(0, 300), random(5, 40), random(1, 10), random(-2, 2)));
             numbRects = 1;
         }
     }
@@ -169,7 +192,17 @@ function mousePressed()
 
     if(dist(mouseX, mouseY, 668, 533) < 30) //creates the ball array
     {
-     
+        if (paintCircle == false) 
+        {
+
+            circs = rects.map
+            (element => 
+            {
+                return element = new circ(element.getPosx());
+            })
+    
+            paintCircle = true;
+        }
     }
 
 }
