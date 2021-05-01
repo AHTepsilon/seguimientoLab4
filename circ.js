@@ -38,6 +38,45 @@ class circ
         }
     }
 
+    stop()
+    {
+        this.posY = 200;
+    }
+
+    getNumb(){
+        return this.numb;
+    }
+
+    getSize()
+    {
+        return this.size;
+    }
+
+    getDir()
+    {
+        return this.dir;
+    }
+
+    getPosX()
+    {
+        return this.posX;
+    }
+
+    setPosX(posX)
+    {
+        this.posX = posX;
+    }
+
+    getPosY()
+    {
+        return this.posY;
+    }
+
+    setPosY(posY)
+    {
+        this.posY = posY;
+    }
+
     resize()
     {
         this.size += 1;

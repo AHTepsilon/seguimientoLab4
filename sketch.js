@@ -76,10 +76,14 @@ function draw()
             for(let index = 0; index < circs.length; index++)
             {
                 circs[index].paint();
-                circs[index].move();
+                
+                if(isMoving)
+                {
+                    circs[index].move();
+                }
 
             }
-            
+
         console.log(paintCircle);
     }
 }
@@ -133,6 +137,11 @@ function rectReSize()
     {
         rects[index].resize();
     }
+
+    for (let index = 0; index < circs.length; index++) 
+    {
+        circs[index].resize();
+    }
 }
 
 // ---------------------------------------------------------------------
@@ -148,6 +157,16 @@ function rectStop()
         for(jindex = 20; jindex < rects.length; jindex += 100)
         {
             rects[index].setPosY(jindex);
+        }
+    }
+
+    for(index = 0; index < circs.length; index++)
+    {
+        circs[index].stop();
+
+        for(jindex = 20; jindex < circs.length; jindex += 100)
+        {
+            circs[index].setPosY(jindex);
         }
     }
 }
@@ -170,6 +189,23 @@ function sortThat()
             }
       
         }
+
+        circs.sort(function(a, b)
+        {
+            return a.getNumb() - b.getNumb();
+        });
+        console.log(circs);
+
+        for(let index = 20; index < circs.length; index += 50)
+        {
+            for(jindex = 20; jindex < circs.length; jindex += 50)
+            {
+                circs[index].setPosX(jindex);
+            }
+      
+        }
+
+        
 }
 
 // ---------------------------------------------------------------------
@@ -245,6 +281,7 @@ function mousePressed()
 
         if(numbRects > 10) //keeps the amount of squares from going above 10
         {
+            circs.pop();
             rects.pop();
             numbRects = 10;
         }
@@ -253,6 +290,7 @@ function mousePressed()
     if(dist(mouseX, mouseY, 291, 533) < 30) //deletes a rect
     {
         rects.pop();
+        circs.pop();
         numbRects--;
 
         if(numbRects < 1) //keeps the amount of squares from going below 0
@@ -265,6 +303,7 @@ function mousePressed()
     if(dist(mouseX, mouseY, 489, 533) < 30) //changes the size
     {
         rects.forEach(rectReSize);
+        circs.forEach(rectReSize);
     }
 
     if(dist(mouseX, mouseY, 668, 533) < 30) //creates the ball array
