@@ -12,9 +12,12 @@ class rectangle
 
     paint()
     {
+        stroke(255);
+        strokeWeight(2);
         fill(0);
         rect(this.posX, this.posY, this.size);
 
+        noStroke();
         textSize(20);
         fill(255);
         text(Math.floor(this.numb), this.posX, this.posY + 5);
@@ -33,6 +36,45 @@ class rectangle
         {
             this.posX = 800;
         }
+    }
+
+    stop()
+    {
+        this.posY = 200;
+    }
+
+    getNumb(){
+        return this.numb;
+    }
+
+    getSize()
+    {
+        return this.size;
+    }
+
+    getDir()
+    {
+        return this.dir;
+    }
+
+    getPosX()
+    {
+        return this.posX;
+    }
+
+    setPosX(posX)
+    {
+        this.posX = posX;
+    }
+
+    getPosY()
+    {
+        return this.posY;
+    }
+
+    setPosY(posY)
+    {
+        this.posY = posY;
     }
 
     resize()

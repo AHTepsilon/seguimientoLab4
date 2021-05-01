@@ -6,13 +6,17 @@ let circs = [];
 
 let paintCircle;
 
+let isMoving;
+
 let screen1;
 
-let rectObject;
+let rectObject, circObject;
 
 let isError;
 
 let rectPosX, rectPosY, rectSize, rectNumb, rectDir;
+
+// ---------------------------------------------------------------------
 
 function setup() 
 {
@@ -20,6 +24,8 @@ function setup()
     img2 = loadImage("data/pantalla2.png");
     numbRects = 0;
     isError = false;
+    paintCircle = false;
+    isMoving = true;
 
     // rectObject = new rectangle(numbRects);
     //rectObjectMap = rectObject.map(numbRects++);
@@ -28,6 +34,8 @@ function setup()
 
    //rectObject.assignNumbs(random(0, 800), random(0, 300), random(10, 40), random(0, 10), random(-2, 2));   
 }
+
+// ---------------------------------------------------------------------
 
 function draw()
 {
@@ -58,28 +66,66 @@ function draw()
         for (let index = 0; index < rects.length; index++) 
         {
             rects[index].paint();
-            rects[index].move();
+
+            if(isMoving)
+            {
+                rects[index].move();
+            }
         }   
+
+            for(let index = 0; index < circs.length; index++)
+            {
+                circs[index].paint();
+                circs[index].move();
+
+            }
+            
+        console.log(paintCircle);
     }
 }
+
+// ---------------------------------------------------------------------
 
 function rectInit()
 {    
     for(let i = 0; i < numbRects; i++)
     {
-        rectPosX = random(0, 800);
-        rectPosY = random(0, 300);
-        rectSize = random(10, 40);
-        rectNumb = random(1, 10);
+        rectPosX = Math.floor(random(0, 800));
+        rectPosY = Math.floor(random(0, 300));
+        rectSize = Math.floor(random(20, 50));
+        rectNumb = Math.floor(random(1, 10));
         rectDir = random(-2, 2);
 
 
-        let rectObject = new rectangle(rectPosX, rectPosY, rectSize, random(1, 10), rectDir);
+        let rectObject = new rectangle(rectPosX, rectPosY, rectSize, rectNumb, rectDir);
         rects[i] = rectObject;
         //rects.push(rectObject);
     
     }
 }
+
+// ---------------------------------------------------------------------
+
+function circInit()
+{
+    for(let index = 0; index < numbRects; index++)
+    {
+            //circs = rects.map(function (a)
+           // {
+           //     circObject = new circ(a.getPosX(), a.getPosY(), a.getSize(), a.getNumb(), a.getDir());
+           //     return circObject;
+           // });
+
+           circObject = new circ(rects[index].getPosX(), rects[index].getPosY() + 100, 
+           rects[index].getSize(), rects[index].getNumb(), rects[index].getDir());
+
+           circs[index] = circObject;
+    }
+
+    console.log(circs);
+}
+
+// ---------------------------------------------------------------------
 
 function rectReSize()
 {
@@ -89,33 +135,64 @@ function rectReSize()
     }
 }
 
-function rectPaint()
-{
-    
-}
+// ---------------------------------------------------------------------
 
-function sortThat()
+function rectStop()
 {
-    for (let index = 0; index < rects.length; index++) 
+    isMoving = false;
+
+    for(index = 0; index < rects.length; index++)
     {
-        rects.sort(rects[index], rectPosX);
+        rects[index].stop();
+
+        for(jindex = 20; jindex < rects.length; jindex += 100)
+        {
+            rects[index].setPosY(jindex);
+        }
     }
 }
 
+// ---------------------------------------------------------------------
+
+function sortThat()
+{
+        rects.sort(function(a, b)
+        {
+            return a.getNumb() - b.getNumb();
+        });
+        console.log(rects);
+
+        for(let index = 20; index < rects.length; index += 50)
+        {
+            for(jindex = 20; jindex < rects.length; jindex += 50)
+            {
+                rects[index].setPosX(jindex);
+            }
+      
+        }
+}
+
+// ---------------------------------------------------------------------
+
 function keyPressed()
 {
+    console.log(rects);
     switch(key)
     {
         case 'n':
             sortThat();
+            rectStop();
             break;
         case 'N':
             sortThat();
+            rectStop();
             break;
         default:
             break;
     }
 }
+
+// ---------------------------------------------------------------------
 
 function mousePressed()
 {
@@ -147,13 +224,13 @@ function mousePressed()
         }
     }
 
-    if(mouseX > 303 && mouseX < 497 && mouseY > 383 && mouseY < 452 && numbRects != 0)
+    if(mouseX > 303 && mouseX < 497 && mouseY > 383 && mouseY < 452 && numbRects != 0 && !screen1)
     {
         screen1 = true;
         rects = [numbRects];
         rectInit();
     }
-    else if(mouseX > 303 && mouseX < 497 && mouseY > 383 && mouseY < 452 && numbRects == 0)
+    else if(mouseX > 303 && mouseX < 497 && mouseY > 383 && mouseY < 452 && numbRects == 0 && !screen1)
     {
         textSize(30);
         isError = true;
@@ -163,7 +240,7 @@ function mousePressed()
 
     if(dist(mouseX, mouseY, 125, 533) < 30) //add a new rect
     {
-        rects.push(new rectangle(random(0, 800), random(0, 300), random(5, 40), random(1, 10), random(-2, 2)));
+        rects.push(new rectangle(random(0, 800), random(0, 300), random(20, 50), Math.floor(random(1, 10)), random(-2, 2)));
         numbRects++;
 
         if(numbRects > 10) //keeps the amount of squares from going above 10
@@ -180,7 +257,7 @@ function mousePressed()
 
         if(numbRects < 1) //keeps the amount of squares from going below 0
         {
-            rects.push(new rectangle(random(0, 800), random(0, 300), random(5, 40), random(1, 10), random(-2, 2)));
+            rects.push(new rectangle(random(0, 800), random(0, 300), random(20, 50), Math.floor(random(1, 10)), random(-2, 2)));
             numbRects = 1;
         }
     }
@@ -192,17 +269,8 @@ function mousePressed()
 
     if(dist(mouseX, mouseY, 668, 533) < 30) //creates the ball array
     {
-        if (paintCircle == false) 
-        {
-
-            circs = rects.map
-            (element => 
-            {
-                return element = new circ(element.getPosx());
-            })
-    
-            paintCircle = true;
-        }
+        circInit();    
+        paintCirle = true;
     }
 
 }
